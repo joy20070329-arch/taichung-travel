@@ -1,270 +1,198 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>台中旅遊：看風景 放輕鬆</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --cream: #faf6f0;
-            --warm-brown: #8b5e3c;
-            --terracotta: #c97941;
-            --sage: #7a9e7e;
-            --ink: #1e1a16;
-            --mist: #e8e0d5;
-            --gold: #c9a84c;
-            /* iOS 安全區域變數 */
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>台中旅遊：看風景 放輕鬆</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #faf6f0;
+            --warm-brown: #8b5e3c;
+            --terracotta: #c97941;
+            --ink: #1e1a16;
+            --mist: #e8e0d5;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; height: 100%; }
 
-        body {
-            background-color: var(--cream);
-            color: var(--ink);
-            font-family: 'Noto Serif TC', serif;
-            -webkit-text-size-adjust: 100%;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch; /* 優化 iOS 滾動流暢度 */
-        }
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: 'Noto Serif TC', serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
 
-        /* ── HERO ── */
-        .hero {
-            position: relative;
-            height: 100vh;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: var(--ink);
-        }
+        /* --- 頂部視覺區 --- */
+        .hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1593100126453-19b562a800c1?q=80&w=1467&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: var(--safe-top);
+        }
 
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 30% 60%, rgba(201,121,65,0.35) 0%, transparent 55%),
-                radial-gradient(ellipse at 75% 30%, rgba(122,158,126,0.25) 0%, transparent 50%),
-                linear-gradient(160deg, #1e1a16 0%, #2e2419 50%, #1a1410 100%);
-        }
+        .hero-title {
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            font-weight: 900;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
 
-        .hero-content {
-            position: relative;
-            text-align: center;
-            z-index: 2;
-            padding: 20px;
-        }
+        .hero-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; opacity: 0.9; letter-spacing: 2px; }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.1;
-        }
-        .hero-title span { display: block; color: var(--terracotta); }
+        /* --- 導航列 --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 246, 240, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--mist);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+        }
 
-        .hero-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 36px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .nav-link {
+            text-decoration: none;
+            color: var(--warm-brown);
+            font-weight: 700;
+            font-size: 0.95rem;
+            position: relative;
+        }
 
-        .hero-link {
-            display: inline-flex;
-            align-items: center;
-            padding: 12px 24px;
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 30px;
-            color: #fff;
-            text-decoration: none;
-            touch-action: manipulation; /* 移除 iOS 點擊延遲 */
-            -webkit-tap-highlight-color: transparent;
-        }
+        .nav-link.active { color: var(--terracotta); }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--terracotta);
+        }
 
-        /* ── STICKY NAV ── */
-        .nav-section {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 246, 240, 0.85);
-            -webkit-backdrop-filter: blur(10px); /* iOS 毛玻璃 */
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--mist);
-        }
-        .nav-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-        }
-        .nav-link {
-            padding: 14px 20px;
-            font-size: 0.88rem;
-            color: #999;
-            text-decoration: none;
-            touch-action: manipulation;
-        }
-        .nav-link.active { color: var(--ink); font-weight: 700; }
+        /* --- 內容區塊 --- */
+        main { flex: 1; padding: 20px; max-width: 800px; margin: 0 auto; width: 100%; }
+        
+        .section { display: none; animation: fadeIn 0.5s ease forwards; }
+        .section.active { display: block; }
 
-        /* ── CONTENT SECTIONS ── */
-        .chapter { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
-        .chapter h2 { margin-bottom: 30px; color: var(--warm-brown); border-left: 4px solid var(--terracotta); padding-left: 15px; }
-        
-        .card-grid { list-style: none; display: grid; gap: 20px; }
-        .item-card {
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card-img-wrap { height: 180px; background: #eee; }
-        .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .item-card {
+            display: flex;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid var(--mist);
+        }
 
-        .card-body { padding: 20px; display: flex; flex-direction: column; justify-content: center; }
-        .card-title { font-size: 1.2rem; margin-bottom: 8px; font-weight: 900; }
-        .card-desc { font-size: 0.9rem; color: #666; line-height: 1.6; }
+        .card-img { width: 35%; min-width: 130px; object-fit: cover; background: var(--mist); }
+        .card-body { padding: 20px; flex: 1; }
+        .card-body h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--ink); }
+        .card-body p { font-size: 0.9rem; color: #555; }
 
-        /* ── FOOTER & BACK TOP ── */
-        footer {
-            background: var(--ink);
-            color: rgba(255,255,255,0.4);
-            padding: 40px 20px calc(40px + var(--safe-bottom)); /* 適配安全區域 */
-            text-align: center;
-        }
+        footer {
+            background: var(--ink);
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            padding: 40px 20px calc(20px + var(--safe-bottom));
+            font-size: 0.8rem;
+        }
 
-        .back-top {
-            position: fixed;
-            bottom: calc(28px + var(--safe-bottom)); /* 適配安全區域 */
-            right: 24px;
-            width: 48px; height: 48px;
-            background: var(--ink);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: 0.3s;
-            touch-action: manipulation;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .back-top.visible { opacity: 1; }
-
-        @media (max-width: 640px) {
-            .item-card { grid-template-columns: 1fr; }
-            .card-img-wrap { height: 200px; }
-        }
-    </style>
+        @media (max-width: 600px) {
+            .item-card { flex-direction: column; }
+            .card-img { width: 100%; height: 200px; }
+        }
+    </style>
 </head>
 <body>
 
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">台中旅遊<span>看風景 放輕鬆</span></h1>
-            <div class="hero-links">
-                <a class="hero-link" href="#food">🍜 美食</a>
-                <a class="hero-link" href="#landmark">🏛 地標</a>
-                <a class="hero-link" href="#customs">🎋 民情</a>
-            </div>
-        </div>
-    </section>
+    <section class="hero">
+        <div>
+            <h1 class="hero-title">台中旅遊</h1>
+            <p class="hero-subtitle">Scenery & Relaxation</p>
+        </div>
+    </section>
 
-    <nav class="nav-section" id="main-nav">
-        <div class="nav-inner">
-            <a class="nav-link" href="#food" data-section="food">台中美食</a>
-            <a class="nav-link" href="#landmark" data-section="landmark">地標建築</a>
-            <a class="nav-link" href="#customs" data-section="customs">民情風俗</a>
-        </div>
-    </nav>
+    <nav id="navbar">
+        <a href="javascript:void(0)" class="nav-link active" onclick="switchTab('food', this)">在地美食</a>
+        <a href="javascript:void(0)" class="nav-link" onclick="switchTab('landmarks', this)">地標建築</a>
+        <a href="javascript:void(0)" class="nav-link" onclick="switchTab('vibe', this)">民情風俗</a>
+    </nav>
 
-    <div id="food" style="padding-top: 20px;"></div>
-    <section class="chapter">
-        <h2>精選美食</h2>
-        <ul class="card-grid" id="food-list"></ul>
-    </section>
+    <main>
+        <section id="food" class="section active">
+            </section>
+        <section id="landmarks" class="section">
+        </section>
+        <section id="vibe" class="section">
+        </section>
+    </main>
 
-    <div id="landmark" style="padding-top: 20px;"></div>
-    <section class="chapter">
-        <h2>地標建築</h2>
-        <ul class="card-grid" id="landmark-list"></ul>
-    </section>
+    <footer>
+        <p>© 2026 台中旅遊誌 · 看風景 放輕鬆</p>
+    </footer>
 
-    <div id="customs" style="padding-top: 20px;"></div>
-    <section class="chapter">
-        <h2>民情風俗</h2>
-        <ul class="card-grid" id="customs-list"></ul>
-    </section>
+    <script>
+        // 資料設定區
+        const data = {
+            food: [
+                { name: "珍珠奶茶", desc: "發源於台中的文化名片，正宗茶香與Q彈珍珠的完美結合。", img: "https://images.unsplash.com/photo-1525203135335-74d292fb8d5c?q=80&w=1000&auto=format&fit=crop" },
+                { name: "太陽餅", desc: "手工揉製千層酥皮，包裹著甜而不膩的麥芽糖內餡。", img: "https://travel.taichung.gov.tw/Utility/DisplayImage?id=25381" }
+            ],
+            landmarks: [
+                { name: "國家歌劇院", desc: "曲牆建築奇蹟，由大師伊東豊雄設計，台中最美地標。", img: "https://images.unsplash.com/photo-1593100126453-19b562a800c1?q=80&w=1000&auto=format&fit=crop" },
+                { name: "高美濕地", desc: "世界級落日景觀，夕陽倒映在濕地上形成的鏡面效果。", img: "https://travel.taichung.gov.tw/Utility/DisplayImage?id=25574" }
+            ],
+            vibe: [
+                { name: "夜市文化", desc: "逢甲夜市的熱鬧氛圍，展現台中人熱情且充滿創意的生活氣息。", img: "https://images.unsplash.com/photo-1571431627063-44706509f7a5?q=80&w=1000&auto=format&fit=crop" }
+            ]
+        };
 
-    <footer>台中旅遊指南 · <span>看風景 放輕鬆</span></footer>
+        // 切換分頁功能
+        function switchTab(id, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            el.classList.add('active');
+            window.scrollTo({ top: document.getElementById('navbar').offsetTop, behavior: 'smooth' });
+        }
 
-    <button class="back-top" id="back-top">↑</button>
-
-    <script>
-        // 資料集
-        const taichungData = {
-            food: [
-                { name: "台中太陽餅", desc: "外皮酥脆、內餡麥芽香甜，是台中最具代表性的傳統糕點。", img: "https://cdn-next.cybassets.com/s/files/22922/ckeditor/pictures/content_3094e569-c7c7-4d9e-ac86-2bbb13a5f6a8.jpg" },
-                { name: "珍珠奶茶", desc: "作為發源地，台中的珍奶擁有最正宗的茶香與Q彈珍珠。", img: "https://www.chunshuitang.com.tw/upload/article_m/ALL_article_[C]_24E24_pFKFEXUAKh.webp" }
-            ],
-            landmark: [
-                { name: "台中國家歌劇院", desc: "世界級建築地標，無樑無柱的曲牆設計展現極致藝術。", img: "https://travel.taichung.gov.tw/image/24379/1024x768" },
-                { name: "高美濕地", desc: "絕美的夕陽與豐富的生態，是必訪的「天空之鏡」。", img: "https://cc.tvbs.com.tw/img/program/upload/2024/06/27/20240627174603-6c1da314.jpg" }
-            ],
-            customs: [
-                { name: "大甲媽祖遶境", desc: "世界三大宗教盛事之一，展現台灣最純粹的民間信仰力量。", img: "https://master-orange.s3.ap-northeast-1.amazonaws.com/media/6245e06360574.jpg" }
-            ]
-        };
-
-        function render() {
-            for (let key in taichungData) {
-                const list = document.getElementById(`${key}-list`);
-                taichungData[key].forEach(item => {
-                    const li = document.createElement('li');
-                    li.className = 'item-card';
-                    li.innerHTML = `
-                        <div class="card-img-wrap"><img src="${item.img}" alt="${item.name}" loading="lazy"></div>
-                        <div class="card-body">
-                            <h3 class="card-title">${item.name}</h3>
-                            <p class="card-desc">${item.desc}</p>
-                        </div>
-                    `;
-                    list.appendChild(li);
-                });
-            }
-        }
-
-        // 高效滾動監聽 (requestAnimationFrame)
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const btn = document.getElementById('back-top');
-                    btn.classList.toggle('visible', window.scrollY > 500);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }, { passive: true });
-
-        document.getElementById('back-top').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        document.addEventListener('DOMContentLoaded', render);
-    </script>
+        // 初始化渲染卡片
+        function render() {
+            for (const key in data) {
+                const container = document.getElementById(key);
+                data[key].forEach(item => {
+                    container.innerHTML += `
+                        <div class="item-card">
+                            <img src="${item.img}" class="card-img" alt="${item.name}">
+                            <div class="card-body">
+                                <h3>${item.name}</h3>
+                                <p>${item.desc}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+        render();
+    </script>
 </body>
 </html>
